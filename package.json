@@ -1,12 +1,11 @@
 {
-  "name": "re",
+  "name": "remotion",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev2": "next dev",
     "dev": "npx remotion studio src/app/remotion/index.js",
-    "build": "next build",
-    "start": "next start",
+    "build": "npx remotion render src/app/remotion/index.js video",
+    "start": "npx remotion preview src/app/remotion/index.js",
     "lint": "next lint"
   },
   "dependencies": {
