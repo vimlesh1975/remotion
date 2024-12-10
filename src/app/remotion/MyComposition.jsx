@@ -11,13 +11,19 @@ import pg8 from './png/pg8.png';
 import pg9 from './png/pg9.png';
 import pg10 from './png/pg10.png';
 import aa from './aa.mp3';
-import background from './png/background.gif'; // Static background image
+import background from './png/background.png'; // Static background image
 
+import { z } from "zod";
+
+export const myCompSchema = z.object({
+  durationPerImage: z.number().min(1).default(100),
+  transitionDuration: z.number().min(1).default(5),
+});
 const images = [pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9, pg10];
 
-export const MyComposition = () => {
-  const durationPerImage = 100; // Frames per image (4 seconds at 25 FPS)
-  const transitionDuration = 5; // Frames for the slide animation
+export const MyComposition = ({ durationPerImage, transitionDuration }) => {
+  // const durationPerImage = 100; // Frames per image (4 seconds at 25 FPS)
+  // const transitionDuration = 5; // Frames for the slide animation
 
   return (
     <AbsoluteFill>
@@ -40,7 +46,7 @@ export const MyComposition = () => {
         return (
           <Sequence
             key={index}
-            from={index * durationPerImage}
+            from={25 + (index * durationPerImage)}
             durationInFrames={durationPerImage}
           >
             <SlidingImage
