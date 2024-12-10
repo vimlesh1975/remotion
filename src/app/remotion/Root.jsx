@@ -76,8 +76,9 @@ export const RemotionRoot = () => {
               <Rnd
                 style={{ backgroundColor: 'yellow' }}
                 size={{ width: clockduration, height: 30 }}
-                position={{ x: 0, y: 0 }}
+                position={{ x: clockinpoint, y: 0 }}
                 enableResizing={{ right: true, bottom: false }}
+                
                 onDrag={(e, d) => {
                   setclockinpoint(d.x);
                 }}
