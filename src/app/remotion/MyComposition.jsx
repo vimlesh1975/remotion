@@ -15,10 +15,7 @@ import background from './png/background.png'; // Static background image
 
 import { z } from "zod";
 
-export const myCompSchema = z.object({
-  durationPerImage: z.number().min(1).default(100),
-  transitionDuration: z.number().min(1).default(5),
-});
+
 const images = [pg1, pg2, pg3, pg4, pg5, pg6, pg7, pg8, pg9, pg10];
 
 export const MyComposition = ({ durationPerImage, transitionDuration }) => {

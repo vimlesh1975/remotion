@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Composition } from 'remotion';
-import { MyComposition, myCompSchema } from './MyComposition';
+import { MyComposition } from './MyComposition';
 
 export const RemotionRoot = () => {
   const [durationPerImage, setDurationPerImage] = useState(100);
@@ -42,24 +42,28 @@ export const RemotionRoot = () => {
             <div
               style={{
                 position: 'fixed',
-                top: 50,
+                top: 200,
                 left: 20,
                 zIndex: 1,
                 background: 'rgba(255, 255, 255, 0.8)',
                 padding: '10px',
                 borderRadius: '5px',
               }}
-              onContextMenu={(e) => e.preventDefault()} // Prevent right-click
+              onContextMenu={(e) => {
+                e.preventDefault();
+                setShowControls(false);
+              }} // Prevent right-click
             >
               <input
                 type="range"
                 min={1}
-                max={500}
+                max={200}
                 value={durationPerImage}
                 onChange={(e) => setDurationPerImage(parseInt(e.target.value))}
-                style={{ width: 500 }}
+                style={{ width: 200 }}
               />
-              <p>Total frames: {durationPerImage * 10}</p>
+              <p>durationPerImage: {durationPerImage}</p>
+              <p>Total frames: {(durationPerImage * 10)+50}</p>
             </div>
           )}
         </>
@@ -69,9 +73,8 @@ export const RemotionRoot = () => {
       <Composition
         id="video"
         component={MyComposition}
-        durationInFrames={(durationPerImage * 10)+25}
+        durationInFrames={(durationPerImage * 10)+50}
         fps={25}
-        schema={myCompSchema}
         width={1920}
         height={1080}
         defaultProps={{ durationPerImage, transitionDuration }}
