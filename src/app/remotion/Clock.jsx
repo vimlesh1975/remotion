@@ -1,8 +1,13 @@
-import React from 'react';
-import { useCurrentFrame, interpolate , AbsoluteFill, Sequence } from 'remotion';
+import React, { useState } from 'react';
+import { useCurrentFrame, interpolate, AbsoluteFill, Sequence } from 'remotion';
 
-export const Clock = ({ fps, clockinpoint, clockduration }) => {
+import Rectangle from './Rectangle';
+
+
+export const Clock = ({ fps, clockinpoint, clockduration, rect }) => {
   const frame = useCurrentFrame();
+
+
 
   // Calculate the time (HH:MM:SS) based on the current frame
   const totalSeconds = Math.floor(frame / fps);
@@ -20,21 +25,28 @@ export const Clock = ({ fps, clockinpoint, clockduration }) => {
 
   return (
     <AbsoluteFill
-    style={{
-      backgroundColor: 'rgba(0, 0, 0, 0)', // Fully transparent background
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontSize:500,
-      color:'red',
-      opacity
-    }}
-  >
-    <Sequence
-      from={clockinpoint}
-      durationInFrames={clockduration}
+      style={{
+        backgroundColor: 'rgba(0, 0, 0, 0)', // Fully transparent background
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 500,
+        color: 'red',
+        opacity
+      }}
     >
-    {hours}:{minutes}:{seconds}
-    </Sequence>
-      </AbsoluteFill>
+      <Sequence
+        from={clockinpoint}
+        durationInFrames={clockduration}
+      >
+        {hours}:{minutes}:{seconds}
+      </Sequence>
+
+      {rect.map((val, i) => <Sequence
+        from={clockinpoint+ (i+1)* clockduration}
+        durationInFrames={clockduration}
+      >
+        <Rectangle />
+      </Sequence>)}
+    </AbsoluteFill>
   );
 };

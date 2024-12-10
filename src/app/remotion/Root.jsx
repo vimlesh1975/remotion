@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import { Composition } from 'remotion';
 import { MyComposition } from './MyComposition';
 import { Clock } from './Clock';
-import { Rnd } from 'react-rnd';
+import Timeline from "./Timeline";
 
 export const RemotionRoot = () => {
   const [durationPerImage, setDurationPerImage] = useState(100);
   const [showControls, setShowControls] = useState(true);
 
+  const [clockinpoint, setclockinpoint] = useState(75);
+  const [clockduration, setclockduration] = useState(50);
 
   const transitionDuration = 10;
 
-  const [clockinpoint, setclockinpoint] = useState(75);
-  const [clockduration, setclockduration] = useState(50);
+  const [rect, setrect] = useState([]);
+
+
+
 
 
   // Check if the app is rendering a video
@@ -56,39 +60,16 @@ export const RemotionRoot = () => {
                 background: 'rgba(255, 255, 255, 0.8)',
                 padding: '10px',
                 borderRadius: '5px',
+                height: 100,
+                width: 240
               }}
               onContextMenu={(e) => {
                 e.preventDefault();
                 setShowControls(false);
               }} // Prevent right-click
             >
-              <input
-                type="range"
-                min={1}
-                max={200}
-                value={durationPerImage}
-                onChange={(e) => setDurationPerImage(parseInt(e.target.value))}
-                style={{ width: 200 }}
-              />
-              <p>durationPerImage: {durationPerImage}</p>
-              <p>Total frames: {(durationPerImage * 10) + 50}</p>
-
-              <Rnd
-                style={{ backgroundColor: 'yellow' }}
-                size={{ width: clockduration, height: 30 }}
-                position={{ x: clockinpoint, y: 0 }}
-                enableResizing={{ right: true, bottom: false }}
-                
-                onDrag={(e, d) => {
-                  setclockinpoint(d.x);
-                }}
-
-                onResize={(e, direction, ref, delta, position) => {
-                  setclockduration(parseInt(ref.style.width));
-              }}
-              >
-                Rnd
-              </Rnd>
+              <Timeline  clockinpoint={clockinpoint} setclockinpoint={setclockinpoint} clockduration={clockduration} setclockduration={setclockduration }/>
+              <button onClick={()=>setrect(val=>[...val, 1])}> Add</button>
 
             </div>
           )}
@@ -112,9 +93,10 @@ export const RemotionRoot = () => {
         fps={25}
         width={1920}
         height={1080}
-        defaultProps={{ fps: 25, durationInFrames: 500, clockinpoint, clockduration }}
-
+        defaultProps={{ fps: 25, clockinpoint, clockduration , rect}}
       />
+
+
     </>
   );
 };
