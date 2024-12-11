@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx remotion studio src/app/remotion/index.js",
-    "build": "npx remotion render src/app/remotion/index.js video",
+    "build": "npx remotion bundle src/app/remotion/index.js",
     "start": "npx remotion preview src/app/remotion/index.js",
     "lint": "next lint"
   },
